@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Synthra.Health – Patient Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="patient.css" />
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo-orb"></div>
+        <div class="brand-text-wrap">
+          <span class="brand-text">SYNTHRA.HEALTH</span>
+          <span class="brand-sub">Patient Operating Panel</span>
+        </div>
+        <span class="brand-pill">Patient</span>
+      </div>
+
+      <nav class="nav">
+        <button id="nav-hospitals" class="nav-link nav-link-active">Hospitals</button>
+        <button id="nav-appointments" class="nav-link">My Appointments</button>
+
+        <div class="nav-right">
+          <span id="user-name" class="user-name"></span>
+          <button id="btn-logout" class="btn-outline btn-ghost hidden">Logout</button>
+          <button id="btn-show-login" class="btn-outline btn-ghost">Login</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  
+  <main class="shell">
+    <div class="shell-inner">
+      
+      <section class="hero">
+        <div class="hero-chip-row">
+          <span class="hero-chip">Appointment-first experience</span>
+          <span class="hero-chip hero-chip-soft">Designed for Indian hospitals</span>
+        </div>
+
+        <h1 class="hero-title">
+          Your hospital visits, <span>synchronised.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Discover trusted hospitals, confirm appointments in seconds, and walk in
+          confidently with your Synthra patient QR.
+        </p>
+
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-value">24/7</span>
+            <span class="metric-label">Self booking</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">Zero</span>
+            <span class="metric-label">Phone calls needed</span>
+          </div>
+          <div class="metric">
+            <span class="metric-value">1 QR</span>
+            <span class="metric-label">For every visit</span>
+          </div>
+        </div>
+
+        <div class="hero-footer-note">
+          Synthra doesn’t replace your doctor. It simply keeps your visits clean, verifiable and easy to manage.
+        </div>
+      </section>
+
+      
+      <section class="stack">
+        <section id="auth-section" class="card auth-card">
+          <div class="auth-header">
+            <div class="auth-tabs">
+              <button id="tab-login" class="auth-tab auth-tab-active">Login</button>
+              <button id="tab-register" class="auth-tab">Register</button>
+            </div>
+          </div>
+
+          <div id="auth-alert" class="alert hidden"></div>
+
+          
+          <form id="login-form" class="form">
+            <h2 class="form-title">Welcome back!!</h2>
+            <p class="form-subtitle">
+              Sign in to continue managing your appointments.
+            </p>
+
+            <label class="form-label">
+              Phone
+              <input
+                type="tel"
+                id="login-phone"
+                class="form-input"
+                placeholder="xxxxxxxxxx"
+              />
+            </label>
+
+            <label class="form-label">
+              Password
+              <input
+                type="password"
+                id="login-password"
+                class="form-input"
+                placeholder="••••••••"
+              />
+            </label>
+
+            <button type="submit" class="btn-primary form-btn">Login</button>
+          </form>
+
+          
+          <form id="register-form" class="form hidden">
+            <h2 class="form-title">Create Synthra ID </h2>
+            <p class="form-subtitle">
+              One secure profile for all your hospital visits.
+            </p>
+
+            <label class="form-label">
+              Full name
+              <input
+                type="text"
+                id="reg-name"
+                class="form-input"
+                placeholder="michael jackson"
+              />
+            </label>
+
+            <label class="form-label">
+              Phone
+              <input
+                type="tel"
+                id="reg-phone"
+                class="form-input"
+                placeholder="xxxxxxxxxx"
+              />
+            </label>
+
+            <label class="form-label">
+              Email (optional)
+              <input
+                type="email"
+                id="reg-email"
+                class="form-input"
+                placeholder="you@example.com"
+              />
+            </label>
+
+            <label class="form-label">
+              Password
+              <input
+                type="password"
+                id="reg-password"
+                class="form-input"
+                placeholder="••••••••"
+              />
+            </label>
+
+            <button type="submit" class="btn-primary form-btn">
+              Create account
+            </button>
+          </form>
+        </section>
+
+        
+        <section id="app-section" class="app-shell hidden">
+          <div class="app-grid">
+            
+            <div id="hospitals-view" class="panel">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">Hospitals</h2>
+                  <p class="panel-subtitle">
+                    Curated list of hospitals you can instantly book.
+                  </p>
+                </div>
+              </div>
+              <div id="hospitals-list" class="list"></div>
+            </div>
+
+            
+            <div id="appointments-view" class="panel hidden">
+              <div class="panel-header">
+                <div>
+                  <h2 class="panel-title">My Appointments</h2>
+                  <p class="panel-subtitle">
+                    All your visits, with QR access and verified reviews.
+                  </p>
+                </div>
+              </div>
+
+              
+              <div id="today-summary" class="today-card hidden"></div>
+
+              <div id="appointments-list" class="list"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  
+  <div id="qr-backdrop" class="modal-backdrop hidden">
+    <div class="modal qr-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Appointment QR</h3>
+        <p id="qr-hospital-name" class="modal-subtitle"></p>
+      </div>
+
+      <div class="qr-body">
+        <div id="qr-box" class="qr-box"></div>
+        <div class="qr-meta">
+          <div id="qr-date" class="qr-meta-line"></div>
+          <div id="qr-note" class="qr-meta-note">
+            Show this code at the hospital front desk to confirm your visit.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="qr-close" class="btn-outline btn-small">Close</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <div id="modal-backdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Book appointment</h3>
+        <p id="modal-hospital-name" class="modal-subtitle"></p>
+      </div>
+
+      <div class="modal-body">
+        <label class="form-label">
+          Date &amp; Time
+          <input type="datetime-local" id="modal-date" class="form-input" />
+        </label>
+
+        <label class="form-label">
+          Reason (optional)
+          <textarea
+            id="modal-reason"
+            class="form-input"
+            rows="3"
+            placeholder="Fever · follow-up · general checkup…"
+          ></textarea>
+        </label>
+
+        <div id="modal-alert" class="alert alert-sm hidden"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn-outline btn-small">Cancel</button>
+        <button id="modal-confirm" class="btn-primary btn-small">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+ 
+  <div id="review-backdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Rate your visit</h3>
+        <p id="review-hospital-name" class="modal-subtitle"></p>
+      </div>
+
+      <div class="modal-body">
+        <div id="review-stars" class="review-stars"></div>
+
+        <label class="form-label">
+          Comment (optional)
+          <textarea
+            id="review-comment"
+            class="form-input"
+            rows="3"
+            placeholder="How was your experience?"
+          ></textarea>
+        </label>
+
+        <div id="review-alert" class="alert alert-sm hidden"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="review-cancel" class="btn-outline btn-small">Cancel</button>
+        <button id="review-save" class="btn-primary btn-small">Save review</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  
+   
+  <script src="patient.js"></script>
+</body>
+</html>

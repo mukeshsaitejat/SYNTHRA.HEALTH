@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Synthra.Health – Hospital Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+  <section id="login-screen" class="center-screen">
+    <div class="login-card">
+      
+      <div class="login-badge">
+        <span class="login-badge-dot"></span>
+        Synthra Secure Access
+      </div>
+
+      <h2 class="login-title">Hospital / Admin Login</h2>
+      <p class="login-sub">Sign in to access Synthra.Health</p>
+
+      <div id="login-alert" class="alert hidden"></div>
+
+      <label class="form-label">
+        Email
+        <input id="login-email" type="email" class="form-input" placeholder="admin@synthra.com">
+      </label>
+
+      <label class="form-label">
+        Password
+        <input id="login-password" type="password" class="form-input" placeholder="••••••••">
+      </label>
+
+      <button id="btn-login" class="btn-primary form-btn">
+        Login
+      </button>
+
+      <p class="login-hint">
+        Default admin: <code>ad@synthra.com</code> / <code>a123</code>
+      </p>
+    </div>
+  </section>
+
+  
+  <section id="admin-screen" class="hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo-orb"></div>
+          <div class="brand-text-wrap">
+            <span class="brand-text">SYNTHRA.HEALTH</span>
+            <span class="brand-sub">Admin Console</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="patient.html" class="nav-link">Patient App</a>
+          <a href="desk.html" class="nav-link">Desk Scanner</a>
+          <button id="btn-logout-admin" class="nav-link">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <div class="shell-inner admin-inner">
+        
+        <section class="card admin-card">
+          <h2 class="panel-title">Create hospital</h2>
+          <p class="panel-subtitle">
+            Add hospitals and generate login credentials for their staff.
+          </p>
+
+          <div id="admin-alert" class="alert hidden"></div>
+
+          <label class="form-label">
+            Hospital name
+            <input id="h-name" class="form-input" type="text" placeholder="Nellore Multi Speciality Hospital">
+          </label>
+
+          <label class="form-label">
+            City
+            <input id="h-city" class="form-input" type="text" placeholder="Nellore">
+          </label>
+
+          <label class="form-label">
+            Address
+            <input id="h-address" class="form-input" type="text" placeholder="Magunta Layout">
+          </label>
+
+          <label class="form-label">
+            Departments (comma separated)
+            <input id="h-departments" class="form-input" type="text" placeholder="Cardiology, Orthopedics, Pediatrics">
+          </label>
+
+          <div class="form-divider"></div>
+
+          <label class="form-label">
+            Hospital login email
+            <input id="h-email" class="form-input" type="email" placeholder="nellore@synthra.com">
+          </label>
+
+          <label class="form-label">
+            Hospital login password
+            <input id="h-password" class="form-input" type="password" placeholder="Set password">
+          </label>
+
+          <button id="btn-create-hospital" class="btn-primary form-btn">
+            Create hospital + account
+          </button>
+        </section>
+
+        
+        <section class="card admin-card">
+          <h2 class="panel-title">Hospitals</h2>
+          <p class="panel-subtitle">
+            All hospitals currently available in Synthra.Health.
+          </p>
+
+          <div id="admin-hospital-list" class="list"></div>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  
+  <section id="hospital-screen" class="hidden">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo-orb"></div>
+          <div class="brand-text-wrap">
+            <span class="brand-text">SYNTHRA.HEALTH</span>
+            <span id="hospital-name" class="brand-sub"></span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="patient.html" class="nav-link">Patient App</a>
+          <a href="desk.html" class="nav-link">Desk Scanner</a>
+          <button id="btn-logout-hospital" class="nav-link">Logout</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <div class="shell-inner hospital-inner">
+        
+        <section class="card hospital-card">
+          <h2 class="panel-title">Hospital overview</h2>
+          <p class="panel-subtitle" id="hospital-meta">
+          </p>
+
+          <div id="hospital-stats" class="hospital-stats hidden">
+            <div class="stat-box">
+              <div class="stat-label">Upcoming</div>
+              <div id="stat-upcoming" class="stat-value">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Pending</div>
+              <div id="stat-pending" class="stat-value">0</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-label">Completed</div>
+              <div id="stat-completed" class="stat-value">0</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-shell">
+          <div class="panel">
+            <h2 class="panel-title">Appointments</h2>
+            <p class="panel-subtitle">
+              Change visit status directly. Patients and desk see updates instantly.
+            </p>
+            <div id="hospital-appointments" class="list"></div>
+          </div>
+
+          <div class="panel" style="margin-top: 14px;">
+            <h2 class="panel-title">Verified reviews</h2>
+            <p class="panel-subtitle">
+              Reviews are only possible after a visit is marked completed.
+            </p>
+            <div id="hospital-reviews" class="review-list"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    const createBtn = document.getElementById('btn-create-hospital');
+    if (createBtn) {
+      createBtn.addEventListener('click', () => {
+        createBtn.classList.add('is-loading');
+        
+        setTimeout(() => {
+          createBtn.classList.remove('is-loading');
+        }, 2000);
+      });
+    }
+
+    const loginBtn = document.getElementById('btn-login');
+    if (loginBtn) {
+      loginBtn.addEventListener('click', () => {
+        loginBtn.classList.add('is-loading');
+       
+        setTimeout(() => {
+          loginBtn.classList.remove('is-loading');
+        }, 3000);
+      });
+    }
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>

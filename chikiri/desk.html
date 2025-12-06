@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Synthra.Health – Desk Scanner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo-orb"></div>
+        <div class="brand-text-wrap">
+          <span class="brand-text">SYNTHRA.HEALTH</span>
+          <span class="brand-sub">Front Desk Scanner</span>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Hospital Portal</a>
+        <a href="patient.html" class="nav-link">Patient App</a>
+      </nav>
+    </div>
+  </header>
+
+  
+  <main class="shell">
+    <div class="shell-inner desk-inner">
+      
+      <section class="card desk-card">
+        <h2 class="panel-title">Scan patient QR</h2>
+        <p class="panel-subtitle">
+          Hold the patient’s Synthra QR code in front of the camera to fetch their booking.
+        </p>
+
+        <div id="desk-alert" class="alert hidden"></div>
+
+        <div class="scanner-shell">
+          <div class="scanner-glow"></div>
+          <div id="scanner" class="scanner-box"></div>
+        </div>
+
+        <p class="scanner-hint">
+          Tip: open this page via <code>http://localhost</code> (or any server) so the browser allows camera access.
+        </p>
+      </section>
+
+      
+      <section class="card desk-detail-card">
+        <h2 class="panel-title">Appointment details</h2>
+        <p class="panel-subtitle">
+          Verify booking, confirm arrival, or mark the visit as completed.
+        </p>
+
+        <div id="desk-details" class="desk-details">
+          <div class="item-meta">
+            Scan a QR code to see appointment information here.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  
+  <script src="desk.js"></script>
+</body>
+</html>
