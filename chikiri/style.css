@@ -2,7 +2,6 @@
   --bg-body: #edf2ff;
   --bg-body-accent: #e0f2fe;
   --bg-card: rgba(255, 255, 255, 0.92);
-  :root {
     --bg-body: #edf2ff;
     --bg-body-accent: #e0f2fe;
     --bg-card: rgba(255, 255, 255, 0.92);
@@ -22,7 +21,7 @@
     --glass-blur: 18px;
     --transition-fast: 0.15s ease;
     --transition-med: 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
+  
 
   *,
   *::before,
@@ -875,3 +874,4 @@
   background: radial-gradient(circle at 30% 20%, #bbf7d0, #22c55e);
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.3);
 }
+
